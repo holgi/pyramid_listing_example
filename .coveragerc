@@ -1,0 +1,3 @@
+[run]
+source = pyramid_listing_example
+omit = pyramid_listing_example/test*
