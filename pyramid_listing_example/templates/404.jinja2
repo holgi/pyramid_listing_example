@@ -1,8 +1,26 @@
 {% extends "layout.jinja2" %}
 
 {% block content %}
-<div class="content">
-  <h1><span class="font-semi-bold">Pyramid</span> <span class="smaller">Alchemy scaffold</span></h1>
-  <p class="lead"><span class="font-semi-bold">404</span> Page Not Found</p>
-</div>
+    <div class="row">
+        <div class="col">
+            <h1><a href="/">Welcome to the Cheese Shop</a></h1>
+            <h2>Cheese Not Found Error (404)</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p>
+                If this happened the first time you started this example project,
+                you've propably forgot to initialize the database.
+            <p>
+                Please run this command: 
+                <code>initialize_pyramid_listing_example_db development.ini</code>
+                from your virtual environment.
+            </p>
+            <p>
+                This could also happen if you tinkered with the url. 
+                So keep on tinkerin!
+            </p>
+        </div>
+    </div>
 {% endblock content %}

@@ -2,6 +2,7 @@ from pyramid.config import Configurator
 
 from .resources import CheeseListResource
 
+
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """

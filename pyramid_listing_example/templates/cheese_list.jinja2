@@ -1,0 +1,110 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <h1><a href="/">Welcome to the Cheese Shop</a></h1>
+            {% if 'search' in context.query_params() %}
+                <h2>You searched for: {{ context.query_params()['search'] }}</h2>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row meta">
+        <div class="col">
+            Items per page: 
+            <a href="{{request.resource_url(context, query=context(p=1, n=5))}}">5</a>,
+            <a href="{{request.resource_url(context, query=context(p=1, n=10))}}">10</a> or
+            <a href="{{request.resource_url(context, query=context(p=1, n=20))}}">20</a>
+        </div>
+        <div class="col">
+            <form method="GET" action="{{request.resource_url(context)}}">
+                <div class="form-row">
+                    <div class="col-auto">
+                        <input type="hidden" name="p" value="1">
+                        <input type="hidden" name="n" value="{{context.pages.items_per_page}}">
+                        <input type="hidden" name="o" value="{{context.order_by or ''}}">
+                        <input type="hidden" name="d" value="{{context.order_dir or ''}}">
+                        <input type="search" name="search" class="form-control" placeholder="Search in description" {% if 'search' in context() %}value="{{ context()['search']}}"{% endif %}>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-outline-dark">go</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {% macro table_header(what) -%}
+                {{ what|capitalize }}
+                <span class="order-dir">
+                    {% if context.order_by == what and context.order_dir == 'asc' %}
+                        &darr;
+                    {% else %}
+                        <a href="{{ request.resource_url(context, query=context(p=1, o=what, d='asc')) }}" title="order by {{ what|capitalize }}, ascending ">&darr;</a>
+                    {% endif %}
+                    {% if context.order_by == what and context.order_dir == 'desc' %}
+                        &uarr;
+                    {% else %}
+                        <a href="{{ request.resource_url(context, query=context(p=1, o=what, d='desc')) }}" title="order by {{ what|capitalize }}, descending">&uarr;</a>
+                    {% endif %}
+                </span>
+            {%- endmacro %}
+
+            {% if context.pages.items_total %}
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>{{ table_header('name') }}</th>
+                            <th>{{ table_header('country') }}</th>
+                            <th>{{ table_header('region') }}</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cheese in context %}
+                            <tr>
+                                <td>
+                                    <a href="{{ request.resource_url(cheese, query=context()) }}">{{ cheese.model.name }}</a>
+                                </td>
+                                <td>{{ cheese.model.country }}</td>
+                                <td>{{ cheese.model.region }}</td>
+                                <td>{{ cheese.model.description|truncate(25) }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <p>Unfortunatly, I found no results</p>
+                <p><a href="/">Reset your search</a></p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {% macro pagination_helper(page, text=None, css_class='') -%}
+                {% set is_active = 'active' if page == context.pages.current %}
+                {% set is_disabled = 'disabled' if not page %}
+                {% set url = request.resource_url(context, query=context(p=page)) if page %}
+                <li class="page-item {{ css_class }} {{ is_active }} {{ is_disabled }}">
+                    <a href="{{ url }}" class="page-link" >{{ text if text else page }}</a>
+                </li>
+            {%- endmacro %}
+            <nav>
+                <ul class="pagination">
+                    {{ pagination_helper(context.pages.previous, '\u2190 Previous', 'prev') }}
+                    {% if context.pages.first not in context.pages.window %}
+                        {{ pagination_helper(None, '...') }}
+                    {% endif %}
+                    {% for page in context.pages.window %}
+                        {{ pagination_helper(page) }}
+                    {% endfor %}
+                    {% if context.pages.last not in context.pages.window %}
+                        {{ pagination_helper(None, '...') }}
+                    {% endif %}
+                    {{ pagination_helper(context.pages.next, 'Next \u2192', 'next') }}
+                </ul>
+            </nav>
+        </div>
+    </div>
+{% endblock content %}

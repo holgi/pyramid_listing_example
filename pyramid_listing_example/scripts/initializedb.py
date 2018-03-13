@@ -26,7 +26,7 @@ cheeses = [
     ('Belgium', 'Rodoric', 'Liège', '''An aged cheese made from unpasteurized goat milk that is traditionally aged in humid caves. When young, the interior is sweet, with age the flavor becomes spicy.'''),  # noqa: E501
     ('Bosnia and Herzegovina', 'Livno cheese', 'Livno', '''The cheese is ready after an average of 60 to 66 days in a controlled environment. The flavor is full, and in older cheeses the taste is slightly piquant. The largest producer is Mljekara Livno or Lura Dairy d.o.o. Livno, with yearly production exceeding 500 metric tons.'''),  # noqa: E501
     ('Bosnia and Herzegovina', 'Travnički (Vlašić) cheese', 'Travnik', '''This cheese is produced on Vlašić mountain in central Bosnia, above the city of Travnik. It was originally made from sheep milk, but there are varieties made from cow milk. This cheese is white in color, and can either have small irregular holes scattered in it, or be solid without holes. Its taste is dry and salty. The milk has a special taste that comes from the variety of different herbs that sheep are eating while grazing on the mountain.'''),  # noqa: E501
-    ('Bulgaria', 'Cherni Vit', 'Teteven Municipality, Lovech Province', '''Made from sheep milk, Cherni Vit cheese owes the green color of its crust and its characteristic taste to the formation of mold. This occurs naturally due to the specific conditions in the region and the technology of production. Produced for centuries, Cherni Vit cheese was nearly extinct in the 2000s until it was rediscovered and popularized by Slow Food representatives.'''),  # noqa: E501
+    ('Bulgaria', 'Cherni Vit', 'Lovech Province', '''Made from sheep milk, Cherni Vit cheese owes the green color of its crust and its characteristic taste to the formation of mold. This occurs naturally due to the specific conditions in the region and the technology of production. Produced for centuries, Cherni Vit cheese was nearly extinct in the 2000s until it was rediscovered and popularized by Slow Food representatives.'''),  # noqa: E501
     ('Croatia', 'Paški sir', 'Island of Pag', '''A hard, distinctively flavored sheep milk cheese. It is generally regarded as the most famous of Croatian artisan cheeses and is found in many export markets outside Croatia, also known as Godsips cheese.'''),  # noqa: E501
     ('Czech Republic', 'Olomoucké syrečky', 'Loštice', '''A ripened soft cheese that is easily recognizable per its strong scent and yellowish color. It is named after the city of Olomouc and contains only 0.6% of fat.'''),  # noqa: E501
     ('Denmark', 'Maribo', 'Lolland', '''A semi-hard cheese made from cow's milk. It has a firm, dry interior; a creamy texture; and many small, irregular holes. It has a pale tan rind covered in yellow wax. Its flavour is tangy, and it is sometimes seasoned with caraway seeds.'''),  # noqa: E501
@@ -108,6 +108,7 @@ def main(argv=sys.argv):
     settings = get_appsettings(config_uri, options=options)
 
     engine = get_engine(settings)
+    Base.metadata.drop_all(engine)
     Base.metadata.create_all(engine)
 
     session_factory = get_session_factory(engine)

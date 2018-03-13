@@ -1,6 +1,7 @@
-from sqlalchemy import Column, Integer, Text
+from sqlalchemy import Column, Integer, Unicode
 
 from .meta import Base
+
 
 class Cheese(Base):
     ''' A cheese '''
@@ -10,11 +11,11 @@ class Cheese(Base):
     #: primary key
     id = Column(Integer, primary_key=True)
     #: country of origin
-    country = Column(Text, nullable=False)
+    country = Column(Unicode, nullable=False)
     #: name of the cheese
-    name = Column(Text, nullable=False)
+    name = Column(Unicode, nullable=False)
     #: region it is produced
-    region = Column(Text, nullable=False)
+    region = Column(Unicode, nullable=False)
     #: description
-    description = Column(Text, nullable=False)
+    description = Column(Unicode, nullable=False)
 

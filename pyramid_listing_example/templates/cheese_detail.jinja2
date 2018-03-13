@@ -1,0 +1,25 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+    <div class="row">
+        <div class="col">
+            <h1><a href="/">Welcome to the Cheese Shop</a></h1>
+            <h2>The delicios "{{ context.model.name }}"</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <dl>
+                <dt>Name:</dt><dd>{{ context.model.name }}</dd>
+                <dt>Country:</dt><dd>{{ context.model.country }}</dd>
+                <dt>Region:</dt><dd>{{ context.model.region }}</dd>
+            </dl>
+            <p>{{ context.model.description}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a href="{{ request.resource_url(context.__parent__, query=context.__parent__()) }}" class="btn btn-primary"">Back to the list</a>
+        </div>
+    </div>
+{% endblock content %}

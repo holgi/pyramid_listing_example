@@ -13,10 +13,8 @@ class CheeseResource:
         
 class CheeseListResource(ListingResource):
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.default_order_by_field = 'name'
-        self.default_order_by_direction = 'asc'
+    default_order_by_field = 'name'
+    default_order_by_direction = 'asc'
 
     def get_base_query(self, request):
         return request.dbsession.query(Cheese)
@@ -26,7 +24,8 @@ class CheeseListResource(ListingResource):
         if search is not None:
             # remember this for creaing further query parameters
             self.remember('search', search)
-            return base_query.filter(Cheese.description.ilike(search))
+            term = '%{}%'.format(search)
+            return base_query.filter(Cheese.description.ilike(term))
         return base_query
 
     def get_order_by_field(self, identifier):
@@ -35,7 +34,7 @@ class CheeseListResource(ListingResource):
             'country': Cheese.country,
             'region': Cheese.region,
             }
-        return map.get(identifier.lower(), None)
+        return map.get(identifier, None)
 
     def resource_from_model(self, model):
         return CheeseResource(model, self)
