@@ -99,6 +99,17 @@ def usage(argv):
     sys.exit(1)
 
 
+def add_example_data(dbsession):
+    for country, name, region, description in cheeses:
+        model = Cheese(
+            country=country,
+            name=name,
+            region=region,
+            description=description
+            )
+        dbsession.add(model)
+    
+
 def main(argv=sys.argv):
     if len(argv) < 2:
         usage(argv)
@@ -115,12 +126,5 @@ def main(argv=sys.argv):
 
     with transaction.manager:
         dbsession = get_tm_session(session_factory, transaction.manager)
-
-        for country, name, region, description in cheeses:
-            model = Cheese(
-                country=country,
-                name=name,
-                region=region,
-                description=description
-                )
-            dbsession.add(model)
+        add_example_data(dbsession)
+        

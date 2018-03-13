@@ -1,11 +1,15 @@
+''' An example for the pyramid_listing_ package
+
+.. _pyramid_listing: https://github.com/holgi/pyramid_listing
+'''
+
 from pyramid.config import Configurator
 
 from .resources import CheeseListResource
 
 
 def main(global_config, **settings):
-    """ This function returns a Pyramid WSGI application.
-    """
+    ''' This function returns a Pyramid WSGI application. '''
     config = Configurator(settings=settings)
     config.include('pyramid_jinja2')
     config.include('.models')
