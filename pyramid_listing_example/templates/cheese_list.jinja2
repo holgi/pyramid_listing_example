@@ -24,7 +24,7 @@
                         <input type="hidden" name="n" value="{{context.pages.items_per_page}}">
                         <input type="hidden" name="o" value="{{context.order_by or ''}}">
                         <input type="hidden" name="d" value="{{context.order_dir or ''}}">
-                        <input type="search" name="search" class="form-control" placeholder="Search in description" {% if 'search' in context() %}value="{{ context()['search']}}"{% endif %}>
+                        <input type="search" name="search" class="form-control" placeholder="Search in description" {% if 'search' in context.filters %}value="{{ context.filters['search']}}"{% endif %}>
                     </div>
                     <div class="col-auto">
                         <button type="submit" class="btn btn-outline-dark">go</button>
