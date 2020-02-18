@@ -4,9 +4,9 @@ from .meta import Base
 
 
 class Cheese(Base):
-    ''' A cheese '''
+    """ A cheese """
 
-    __tablename__ = 'cheeses'
+    __tablename__ = "cheeses"
 
     #: primary key
     id = Column(Integer, primary_key=True)
@@ -18,4 +18,3 @@ class Cheese(Base):
     region = Column(Unicode, nullable=False)
     #: description
     description = Column(Unicode, nullable=False)
-

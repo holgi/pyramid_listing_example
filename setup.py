@@ -28,6 +28,13 @@ tests_require = [
     'pytest-cov',
 ]
 
+dev_require = [
+    "black",
+    "flake8",
+    "flake8-comprehensions",
+    "isort",
+]
+
 setup(
     name='pyramid_listing_example',
     version='0.0.1',
@@ -49,6 +56,7 @@ setup(
     zip_safe=False,
     extras_require={
         'testing': tests_require,
+        'dev': dev_require,
     },
     install_requires=requires,
     entry_points={
