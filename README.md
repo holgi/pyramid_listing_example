@@ -20,26 +20,18 @@ Getting Started
 
     `cd pyramid_listing_example`
 
-- Create a Python virtual environment.
+- Initialize the developement environment environment.
 
-    `python3 -m venv env`
-
-- Upgrade packaging tools.
-
-    `env/bin/pip install --upgrade pip setuptools`
-
-- Install the project in editable mode with its testing requirements.
-
-    `env/bin/pip install -e ".[testing]"`
+    `make devenv`
 
 - Configure the database.
 
-    `env/bin/initialize_pyramid_listing_example_db development.ini`
+    `.venv/bin/initialize_pyramid_listing_example_db development.ini`
 
 - Run the project's tests.
 
-    `env/bin/pytest`
+    `make test`
 
 - Run the project.
 
-    `env/bin/pserve development.ini`
+    `.venv/bin/pserve development.ini`
