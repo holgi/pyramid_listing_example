@@ -32,7 +32,7 @@ dev_require = [
     "black",
     "flake8",
     "flake8-comprehensions",
-    "isort",
+    "isort >= 5.0.0",
 ]
 
 setup(
